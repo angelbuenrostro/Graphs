@@ -17,15 +17,36 @@ class Graph:
         """
         Add a directed edge to the graph.
         """
-        if all (key in self.vertices for key in (v1, v2)):
+        if v1 and v2 in self.vertices:
             self.vertices[v1].add(v2)
+        else:
+            print("ERROR: Vertex does not exist")
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # Steps to complete traversal
+        # Create an empty queue
+        # Create a set to store visited nodes
+        # Add start vertex
+        # while queue is not empty
+        # iterate through each level starting at first vertex
+        # grab next and add it to the queue
+        q = Queue()
+        visited = set()
+        q.enqueue(starting_vertex)
+
+        while q.size() > 0:
+            current = q.dequeue()
+            if current not in visited:
+                print(current)
+                visited.add(current)
+                for next_vertex in self.vertices[current]:
+                    q.enqueue(next_vertex)
+        
+
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order

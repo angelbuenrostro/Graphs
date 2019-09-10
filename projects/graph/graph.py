@@ -89,20 +89,19 @@ class Graph:
         q.enqueue(starting_vertex)
         while q:
             current = q.dequeue()
-            for next in self.vertices[current]:
-                if next is destination_vertex:
-                    parent[next] = current
+            for neighbor in self.vertices[current]:
+                if neighbor is destination_vertex:
+                    parent[neighbor] = current
                     
-                    path = [next]
-                    while next != starting_vertex:
-                        next = parent[next]
-                        path.insert(0, next)
+                    path = [neighbor]
+                    while neighbor != starting_vertex:
+                        neighbor = parent[neighbor]
+                        path.insert(0, neighbor)
                     return path
 
-                    return path
-                if next not in parent:
-                    parent[next] = current
-                    q.enqueue(next)
+                if neighbor not in parent:
+                    parent[neighbor] = current
+                    q.enqueue(neighbor)
 
 
         pass  # TODO

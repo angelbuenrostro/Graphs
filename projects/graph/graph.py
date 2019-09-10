@@ -103,19 +103,31 @@ class Graph:
                     parent[neighbor] = current
                     q.enqueue(neighbor)
 
+        print("No path found")
+        return None
 
-        pass  # TODO
     def dfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
-
-
-
-
+        path = []
+        s = Stack()
+        visited = set()
+        s.push(starting_vertex)
+        print("PATH DFT")
+        while s.size() > 0:
+            current = s.pop()
+            if current not in visited:
+                path.append(current)
+                if current is destination_vertex:
+                    return path
+                visited.add(current)
+                for next_vertex in self.vertices[current]:
+                    s.push(next_vertex)
+        return None
+            
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph

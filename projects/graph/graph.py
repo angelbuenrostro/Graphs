@@ -80,21 +80,29 @@ class Graph:
         breath-first order.
         """
         print("Shortest BFS")
-        path = []
+        if starting_vertex is destination_vertex:
+            return starting_vertex
+        parent = {}
+        parent[starting_vertex] = starting_vertex
+
         q = Queue()
-        visited = set()
         q.enqueue(starting_vertex)
-        while q.size() > 0:
+        while q:
             current = q.dequeue()
-            if current not in visited:
-                print(current)
-                visited.add(current)
-                path.append(current)
-                for next_vertex in self.vertices[current]:
-                    if next_vertex is destination_vertex:
-                        path.append(next_vertex)
-                        return path
-                    q.enqueue(next_vertex)
+            for next in self.vertices[current]:
+                if next is destination_vertex:
+                    parent[next] = current
+                    
+                    path = [next]
+                    while next != starting_vertex:
+                        next = parent[next]
+                        path.insert(0, next)
+                    return path
+
+                    return path
+                if next not in parent:
+                    parent[next] = current
+                    q.enqueue(next)
 
 
         pass  # TODO

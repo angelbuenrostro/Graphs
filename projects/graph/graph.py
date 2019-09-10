@@ -64,14 +64,22 @@ class Graph:
                 for next_vertex in self.vertices[current]:
                     s.push(next_vertex)
 
-    def dft_recursive(self, starting_vertex):
+    def dft_recursive(self, starting_vertex, visited = None):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         This should be done using recursion.
         """
-        print("Recursion DFT")
-        
+        # base case
+        if visited is None:
+            visited = set()
+
+        visited.add(starting_vertex)
+        print(starting_vertex)
+        for child_vert in self.vertices[starting_vertex]:
+            if child_vert not in visited:
+                self.dft_recursive(child_vert, visited)
+                
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -79,31 +87,24 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        print("Shortest BFS")
-        if starting_vertex is destination_vertex:
-            return starting_vertex
-        parent = {}
-        parent[starting_vertex] = starting_vertex
-
+        
         q = Queue()
-        q.enqueue(starting_vertex)
-        while q:
-            current = q.dequeue()
-            for neighbor in self.vertices[current]:
-                if neighbor is destination_vertex:
-                    parent[neighbor] = current
-                    
-                    path = [neighbor]
-                    while neighbor != starting_vertex:
-                        neighbor = parent[neighbor]
-                        path.insert(0, neighbor)
-                    return path
+        visited = set()
+        q.enqueue([starting_vertex])
+        
+        while q.size() > 0:
+            path = q.dequeue()
+            current = path[-1]
+            if current not in visited:
+                if current is destination_vertex:
+                    return "BFS: " + str(path)
+                visited.add(current)
+                for next_vert in self.vertices[current]:
+                    new_path = list(path) #path is a reference type so need to copy
+                    new_path.append(next_vert)
+                    q.enqueue(new_path)
 
-                if neighbor not in parent:
-                    parent[neighbor] = current
-                    q.enqueue(neighbor)
-
-        print("No path found")
+        print("BFS: Path does not exist")
         return None
 
     def dfs(self, starting_vertex, destination_vertex):
@@ -116,16 +117,16 @@ class Graph:
         s = Stack()
         visited = set()
         s.push(starting_vertex)
-        print("PATH DFT")
         while s.size() > 0:
             current = s.pop()
             if current not in visited:
                 path.append(current)
                 if current is destination_vertex:
-                    return path
+                    return "DFS: " + str(path)
                 visited.add(current)
                 for next_vertex in self.vertices[current]:
                     s.push(next_vertex)
+        print("DFS: Path does not exist")
         return None
             
 
@@ -189,6 +190,7 @@ if __name__ == '__main__':
         1, 2, 4, 7, 6, 3, 5
         1, 2, 4, 6, 3, 5, 7
     '''
+    print("Starting recursive DFT")
     graph.dft_recursive(1)
 
     '''

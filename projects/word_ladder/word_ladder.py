@@ -79,7 +79,45 @@ class Graph:
         print("BFS: Path does not exist")
         return None
 
+    def find_transformation(self, first_word, last_word):
+        print(first_word, last_word)
+
+    def nearly_equal(self, string1, string2):
+        count_diffs = 0
+        for a, b in zip(string1, string2):
+            if a!=b:
+                if count_diffs: return False
+                count_diffs += 1
+        return True
+
+    def make_edges(self):
+        print("make edges")
+
+        for word in self.vertices:
+            for second_word in self.vertices:
+                if self.nearly_equal(word, second_word) and word is not second_word:
+                    self.add_edge(word, second_word)
+        
+        for word in self.vertices:
+            print(str(word) + " " + str(self.vertices[word]))
+        
+
+if __name__ == '__main__':
+    graph = Graph()
+
+        # Add all words as a vertex inside our graph
     text = open("/Users/angelbuenrostro/Python/Graphs/projects/word_ladder/words.txt", "r")
-    for line in text:
-        #print(line)
-    
+    for word in text:
+        if len(word) is 5 and word.islower():
+            word_no_whitespace = word.split()
+            graph.add_vertex(word_no_whitespace[0])
+    print("Number of vertices in word graph: "+ str(len(graph.vertices)))
+
+    # for id, val in enumerate(graph.vertices):
+    #     print(id, val)
+
+    graph.make_edges()
+
+    start = "burn"
+    end = "turn"
+    graph.find_transformation(start, end)

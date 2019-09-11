@@ -118,6 +118,15 @@ if __name__ == '__main__':
     graph.add_vertex("tot")
     graph.add_vertex("tat")
     graph.add_vertex("bat")
+    graph.add_vertex("tab")
+    graph.add_vertex("tap")
+    graph.add_vertex("bar")
+    graph.add_vertex("tax")
+    graph.add_vertex("tex")
+    graph.add_vertex("rex")
+    graph.add_vertex("rep")
+    graph.add_vertex("rap")
+    graph.add_vertex("zap")
 
     graph.make_edges()
 
@@ -131,5 +140,9 @@ if __name__ == '__main__':
     # print("waxy: " + str(graph.vertices['waxy']))
     # print("taxy: " + str(graph.vertices['taxy']))
 
-    # should print WAVY -> WAXY -> TAXY
-    print("Path is: " + str(graph.bfs(start, end)))
+    # should print BOX -> BOT -> BAT
+    print("Path for box to bat is: " + str(graph.bfs(start, end)))
+
+    start = "box"
+    end = "zap"
+    print("Path for box to zap: " + str(graph.bfs(start, end)))

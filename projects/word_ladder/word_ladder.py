@@ -52,3 +52,34 @@ class Graph:
             self.vertices[v1].add(v2)
         else:
             print("ERROR: Vertex does not exist")
+
+    def bfs(self, starting_vertex, destination_vertex):
+        """
+        Return a list containing the shortest path from
+        starting_vertex to destination_vertex in
+        breath-first order.
+        """
+        
+        q = Queue()
+        visited = set()
+        q.enqueue([starting_vertex])
+        
+        while q.size() > 0:
+            path = q.dequeue()
+            current = path[-1]
+            if current not in visited:
+                if current is destination_vertex:
+                    return "BFS: " + str(path)
+                visited.add(current)
+                for next_vert in self.vertices[current]:
+                    new_path = list(path) #path is a reference type so need to copy
+                    new_path.append(next_vert)
+                    q.enqueue(new_path)
+
+        print("BFS: Path does not exist")
+        return None
+
+    text = open("/Users/angelbuenrostro/Python/Graphs/projects/word_ladder/words.txt", "r")
+    for line in text:
+        #print(line)
+    

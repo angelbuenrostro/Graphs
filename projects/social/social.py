@@ -1,4 +1,8 @@
-
+# vertexes are people
+# edges are friendship connections
+# connected components are extended social network (friend groups)
+# number of users between one user and another are degrees of seperation
+import random
 
 class User:
     def __init__(self, name):
@@ -45,10 +49,17 @@ class SocialGraph:
         self.users = {}
         self.friendships = {}
         # !!!! IMPLEMENT ME
-
         # Add users
+        if numUsers > avgFriendships:
+            friend_list = []
+            for i in range(0, numUsers):
+                friend_list.append(i)
+                self.addUser(i)
+            print(self.users)
 
         # Create friendships
+            for i in range (0, numUsers):
+                
 
     def getAllSocialPaths(self, userID):
         """

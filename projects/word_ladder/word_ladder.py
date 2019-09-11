@@ -136,9 +136,6 @@ if __name__ == '__main__':
     start = 'box'
     end = 'bat'
 
-    # print(str(start) + ": " + str(graph.vertices[start]))
-    # print("waxy: " + str(graph.vertices['waxy']))
-    # print("taxy: " + str(graph.vertices['taxy']))
 
     # should print BOX -> BOT -> BAT
     print("Path for box to bat is: " + str(graph.bfs(start, end)))

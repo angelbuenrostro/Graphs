@@ -58,18 +58,22 @@ class SocialGraph:
                 self.addUser(i)
 
             # Create friendships
+            # Tracks previously made friendships
             used_connections = []
+            # Counts number of friendships to make
             for i in range (0, int((numUsers*avgFriendships)/2)):
-                found_random = False
-                while found_random == False:
+                new_connection = False
+                while new_connection == False:
+                    # not 0-numUsers, error occurs when adding friend with 0
                     user1 = random.randint(1, numUsers)
                     user2 = random.randint(1, numUsers)
                     user_string = str(user1) + ", " + str(user2)
+                    # if 1 < 2 prevents reversed duplication of connection
                     if user1 < user2 and user_string not in used_connections:
                         print("Unique string " +str(i+1) + ": " + user_string)
                         self.addFriendship(user1, user2)
                         used_connections.append(user_string)
-                        found_random = True
+                        new_connection = True
             print(used_connections)
 
 

@@ -87,7 +87,7 @@ class SocialGraph:
                         new_connection = True
             print(used_connections)
 
-    def getAllSocialPaths(self, userID):
+    def getAllSocialPaths(self, userID, originalID = None, visited = None):
         """
         Takes a user's userID as an argument
 
@@ -96,19 +96,45 @@ class SocialGraph:
 
         The key is the friend's ID and the value is the path.
         """
-        visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
         # BFS
-
+        if visited is None:
+            visited = {}  # Note that this is a dictionary, not a set
+            visited[userID] = [userID]
+            originalID = userID
+        # Recursively find friendship path connection then return visited path at end
+        for friend in self.friendships[userID]:
+            if friend not in visited:
+                path = self.findShortestPath(originalID, friend)
+                print(str(friend) + " path: " + str(path))
+                visited[friend] = path
+                self.getAllSocialPaths(friend, originalID, visited)
+        
 
         return visited
 
+
+    def findShortestPath(self, start, goal):
+        visited = set()
+        q = Queue()
+        q.enqueue([start])
+        while q.size() > 0:
+            path = q.dequeue()
+            current = path[-1]
+            if current not in visited:
+                visited.add(current)
+                if current == goal:
+                    return path
+                for neighbor in self.friendships[current]:
+                    new_path = list(path)
+                    new_path.append(neighbor)
+                    q.enqueue(new_path)
 
 if __name__ == '__main__':
     sg = SocialGraph()
     print("Starting social graph for 10 users, avg is 2")
 
     sg.populateGraph(10, 2)
-    print(sg.friendships)
+    print("sg.friendships: " + str(sg.friendships))
     connections = sg.getAllSocialPaths(1)
-    print(connections)
+    print("sg.getAllSocialPaths: " + str(connections))

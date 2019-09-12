@@ -110,9 +110,7 @@ class SocialGraph:
                 visited[friend] = path
                 self.getAllSocialPaths(friend, originalID, visited)
         
-
         return visited
-
 
     def findShortestPath(self, start, goal):
         visited = set()
@@ -134,7 +132,7 @@ if __name__ == '__main__':
     sg = SocialGraph()
     print("Starting social graph for 10 users, avg is 2")
 
-    sg.populateGraph(10, 2)
+    sg.populateGraph(1000, 22)
     print("sg.friendships: " + str(sg.friendships))
     connections = sg.getAllSocialPaths(1)
     print("sg.getAllSocialPaths: " + str(connections))

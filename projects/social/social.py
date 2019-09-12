@@ -51,15 +51,29 @@ class SocialGraph:
         # !!!! IMPLEMENT ME
         # Add users
         if numUsers > avgFriendships:
+            
             friend_list = []
             for i in range(0, numUsers):
                 friend_list.append(i)
                 self.addUser(i)
-            print(self.users)
 
-        # Create friendships
-            for i in range (0, numUsers):
-                
+            # Create friendships
+            used_connections = []
+            for i in range (0, int((numUsers*avgFriendships)/2)):
+                found_random = False
+                while found_random == False:
+                    user1 = random.randint(1, numUsers)
+                    user2 = random.randint(1, numUsers)
+                    user_string = str(user1) + ", " + str(user2)
+                    if user1 < user2 and user_string not in used_connections:
+                        print("Unique string " +str(i+1) + ": " + user_string)
+                        self.addFriendship(user1, user2)
+                        used_connections.append(user_string)
+                        found_random = True
+            print(used_connections)
+
+
+
 
     def getAllSocialPaths(self, userID):
         """
@@ -77,6 +91,13 @@ class SocialGraph:
 
 if __name__ == '__main__':
     sg = SocialGraph()
+    print("Starting social graph for 10 users, avg is 2")
+    # sg.addUser(0)
+    # sg.addUser(1)
+    # sg.addUser(2)
+    # sg.addUser('angel')
+    # sg.addFriendship(1,2)
+
     sg.populateGraph(10, 2)
     print(sg.friendships)
     connections = sg.getAllSocialPaths(1)

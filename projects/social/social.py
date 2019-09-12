@@ -4,6 +4,19 @@
 # number of users between one user and another are degrees of seperation
 import random
 
+class Queue():
+    def __init__(self):
+        self.queue = []
+    def enqueue(self, value):
+        self.queue.append(value)
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+    def size(self):
+        return len(self.queue)
+
 class User:
     def __init__(self, name):
         self.name = name
@@ -52,9 +65,7 @@ class SocialGraph:
         # Add users
         if numUsers > avgFriendships:
             
-            friend_list = []
             for i in range(0, numUsers):
-                friend_list.append(i)
                 self.addUser(i)
 
             # Create friendships
@@ -76,9 +87,6 @@ class SocialGraph:
                         new_connection = True
             print(used_connections)
 
-
-
-
     def getAllSocialPaths(self, userID):
         """
         Takes a user's userID as an argument
@@ -90,17 +98,15 @@ class SocialGraph:
         """
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
+        # BFS
+
+
         return visited
 
 
 if __name__ == '__main__':
     sg = SocialGraph()
     print("Starting social graph for 10 users, avg is 2")
-    # sg.addUser(0)
-    # sg.addUser(1)
-    # sg.addUser(2)
-    # sg.addUser('angel')
-    # sg.addFriendship(1,2)
 
     sg.populateGraph(10, 2)
     print(sg.friendships)
